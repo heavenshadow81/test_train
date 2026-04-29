@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b17c5b58c1d990340a6312b72e4fc7e0
+timeCreated: 1506507885
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shadowPrefab: {fileID: 1469383502657836, guid: bd20e0e0caffd7b41a7acf4149367d9a,
+      type: 2}
+  - particlePrefab: {fileID: 100006, guid: 66a8301eae2b445489f504deaa3218f0, type: 2}
+  - effectSound: {fileID: 8300000, guid: 66e838f16dd3f5e499fd5280d0e03d09, type: 3}
+  - spawnSound: {fileID: 8300000, guid: e3dbd140160bec346849095f8c5165be, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

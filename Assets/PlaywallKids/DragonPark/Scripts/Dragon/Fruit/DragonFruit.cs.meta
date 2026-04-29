@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 568128e7f18285e488faa7cc6d0a7106
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - dragon: {instanceID: 0}
+  - poopSound: {fileID: 8300000, guid: e2a71c61dcdc7ea49a8c4d9f021f013f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

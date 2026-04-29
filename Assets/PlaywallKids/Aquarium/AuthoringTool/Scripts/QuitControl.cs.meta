@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bc7aa9149c795a54ca1bab657f4e5b2c
+timeCreated: 1502067204
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - drawingTex: {instanceID: 0}
+  - outputShader: {fileID: 4800000, guid: e0df58249264fd748b424f0df2df21bb, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

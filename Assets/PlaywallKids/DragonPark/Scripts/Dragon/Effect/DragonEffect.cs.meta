@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 870073e9395c2924d9d602be4266e9b6
+timeCreated: 1504055420
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - smokePrefab: {fileID: 100000, guid: c37d1f747cd246a42b3c1c7c499c0be3, type: 2}
+  - zzzPrefab: {fileID: 100000, guid: 5bb6b2c9ec853134e99766702f2e6924, type: 2}
+  - kissPrefab: {fileID: 100000, guid: 93c657dc468ae204788de15c49e6b61f, type: 2}
+  - speedPrefab: {fileID: 100000, guid: aff14ff6c0746a3489aa0fd92b543c78, type: 2}
+  - heartPrefab: {fileID: 100000, guid: c58fee37c9f2fc0428b280108b0ccde0, type: 2}
+  - sighPrefab: {fileID: 100000, guid: 2971604da49c0084c9af571df1ae4fed, type: 2}
+  - exclamationPrefab: {fileID: 100000, guid: e17550141a7ed5247b1289ebddc4cc76, type: 3}
+  - popPrefab: {fileID: 100002, guid: 7d044b898512fb744b8a82dcde54bc71, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

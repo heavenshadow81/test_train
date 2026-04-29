@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c2700712512c7d94ead44ccf4fc16f8d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - rainyPrefab: {fileID: 100000, guid: 5cb5bb91ea11a7243b125e338de94011, type: 2}
+  - snowyPrefab: {fileID: 100000, guid: 05c91f698b84de14dbca78affc88026f, type: 2}
+  - sunnyWeatherInfo: {fileID: 11400000, guid: b7df7d648a3d6c445ae0c891340188d2, type: 2}
+  - cloudyWeatherInfo: {fileID: 11400000, guid: 1ef7c84551755194ba8875ca96d1822d,
+      type: 2}
+  - directionalLight: {instanceID: 0}
+  - evLight: {instanceID: 0}
+  - mainCamera: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
