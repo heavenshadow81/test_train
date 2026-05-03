@@ -698,7 +698,7 @@ namespace ML.PlaywallKids.Interaction
             {
                 lampRb = lamp.AddComponent<Rigidbody2D>();
                 lampRb.mass = 1.0f;
-                lampRb.linearDamping = 1.0f;
+                lampRb.drag = 1.0f;
             }
 
             if (lampRb.gravityScale >= -0.0001f)

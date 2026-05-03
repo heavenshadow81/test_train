@@ -40,7 +40,7 @@ namespace CookiesParty
             float zForce = Random.Range(-sideForce, sideForce);
             Vector3 force = new Vector3(xForce, yForce, zForce);
             Vector3 localForce = transform.TransformDirection(force);  // ���� ��ǥ�� ���� ��ǥ�� ��ȯ
-            rb.linearVelocity = localForce;
+            rb.velocity = localForce;
 
             // Y�� ȸ�� �ִϸ��̼� ���� (���� ����)
             transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.LocalAxisAdd)

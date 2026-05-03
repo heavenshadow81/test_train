@@ -47,7 +47,7 @@ namespace RowBoat
         private IEnumerator ResetPlayerSpeed()
         {
             yield return new WaitForSeconds(0.5f);
-            rb.linearVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
             ResetBoatSpeed();
         }
 
@@ -57,7 +57,7 @@ namespace RowBoat
 
             if (isStop)
             {
-                rb.linearVelocity = (-transform.right + transform.forward) * launchSpeed;
+                rb.velocity = (-transform.right + transform.forward) * launchSpeed;
                 isStop = false;
             }
             else
@@ -75,7 +75,7 @@ namespace RowBoat
 
             if (isStop)
             {
-                rb.linearVelocity = (-transform.right - transform.forward) * launchSpeed;
+                rb.velocity = (-transform.right - transform.forward) * launchSpeed;
                 isStop = false;
             }
             else
@@ -146,9 +146,9 @@ namespace RowBoat
 
         private void LimitSpeed()
         {
-            if (rb.linearVelocity.magnitude > maxMoveSpeed)
+            if (rb.velocity.magnitude > maxMoveSpeed)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * maxMoveSpeed;
+                rb.velocity = rb.velocity.normalized * maxMoveSpeed;
             }
         }
 

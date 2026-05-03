@@ -135,9 +135,9 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
                 colliders[i] = collider;
 
                 // for preventing static collider move
-                var rigidbody = go.AddComponent<Rigidbody>();
-                rigidbody.isKinematic = true;
-                rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                var rb = go.AddComponent<Rigidbody>();
+                rb.isKinematic = true;
+                rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
         }
 
@@ -478,13 +478,13 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
                         Vector3 dir = note.transform.position - pos;
                         if (dir.magnitude >= 1.0f)
                         {
-                            Rigidbody rigidbody = note.GetComponent<Rigidbody>();
+                            Rigidbody rb = note.GetComponent<Rigidbody>();
 
-                            if (rigidbody != null)
+                            if (rb != null)
                             {
-                                Vector2 force = dir.normalized * Random.Range(30000.0f, 40000.0f) * rigidbody.mass / dir.magnitude;
+                                Vector2 force = dir.normalized * Random.Range(30000.0f, 40000.0f) * rb.mass / dir.magnitude;
 
-                                rigidbody.AddForce(force, ForceMode.Force);
+                                rb.AddForce(force, ForceMode.Force);
                             }
                         }
                     }
@@ -612,13 +612,13 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         {
             foreach (GameObject note in notes)
             {
-                var rigidbody = note.GetComponent<Rigidbody>();
-                if (rigidbody != null)
+                var rb = note.GetComponent<Rigidbody>();
+                if (rb != null)
                 {
-                    if (rigidbody.linearVelocity.sqrMagnitude < 100.0f)
+                    if (rb.velocity.sqrMagnitude < 100.0f)
                     {
                         Vector3 force = Random.insideUnitSphere * Random.Range(1000.0f, 2000.0f);
-                        rigidbody.AddForce(force, ForceMode.Force);
+                        rb.AddForce(force, ForceMode.Force);
                     }
                 }
             }

@@ -313,23 +313,23 @@ public class SU_AsteroidField : MonoBehaviour {
 			
 			if (isRigidbody) {
 				// RIGIDBODY ASTEROIDS
-				// If the asteroid prefab has a rigidbody...
+				// If the asteroid prefab has a rb...
 				if (_newAsteroid.GetComponent<Rigidbody>() != null) {
 					// Set the mass to mass specified in AsteroidField mutiplied by scale
 					_newAsteroid.GetComponent<Rigidbody>().mass = mass * _newScale;
-					// Set the velocity (speed) of the rigidbody to within the min/max velocity range multiplier by velocityMultiplier
-					_newAsteroid.GetComponent<Rigidbody>().linearVelocity = _newAsteroid.transform.forward * Random.Range(minAsteroidVelocity, maxAsteroidVelocity) * velocityMultiplier;
-					// Set the angular velocity (rotational speed) of the rigidbody to within the min/max velocity range multiplier by velocityMultiplier
+					// Set the velocity (speed) of the rb to within the min/max velocity range multiplier by velocityMultiplier
+					_newAsteroid.GetComponent<Rigidbody>().velocity = _newAsteroid.transform.forward * Random.Range(minAsteroidVelocity, maxAsteroidVelocity) * velocityMultiplier;
+					// Set the angular velocity (rotational speed) of the rb to within the min/max velocity range multiplier by velocityMultiplier
 					_newAsteroid.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f,1.0f), Random.Range(0.0f,1.0f), Random.Range(0.0f,1.0f)) * Random.Range(minAsteroidAngularVelocity, maxAsteroidAngularVelocity) * angularVelocityMultiplier;
 				} else {
-					Debug.LogWarning("AsteroidField is set to spawn rigidbody asterodids but one or more asteroid prefabs do not have rigidbody component attached.");
+					Debug.LogWarning("AsteroidField is set to spawn rb asterodids but one or more asteroid prefabs do not have rb component attached.");
 				}
 			} else {
 				// NON-RIGIDBODY ASTEROIDS
 				
-				// If the asteroid prefab has a rigidbody...
+				// If the asteroid prefab has a rb...
 				if (_newAsteroid.GetComponent<Rigidbody>() != null) {
-					// Destroy the rigidbody since the asteroid field is spawning non-rigidbody asteroids
+					// Destroy the rb since the asteroid field is spawning non-rb asteroids
 					Destroy(_newAsteroid.GetComponent<Rigidbody>());
 				}
 				// If the asteroid has the Asteroid script attached to it...

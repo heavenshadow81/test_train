@@ -33,7 +33,7 @@ public class RPGCharacterController : MonoBehaviour{
 	[HideInInspector]
 	public UnityEngine.AI.NavMeshAgent navMeshAgent;
 	[HideInInspector]
-	public Rigidbody rb;
+	public Rigidbody drag;
 	public Animator animator;
 	public GameObject target;
 	[HideInInspector]
@@ -195,7 +195,7 @@ public class RPGCharacterController : MonoBehaviour{
 		//set the components
 		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
-		rb = GetComponent<Rigidbody>();
+		drag = GetComponent<Rigidbody>();
 		capCollider = GetComponent<CapsuleCollider>();
 		FXSplash = transform.GetChild(2).GetComponent<ParticleSystem>();
 		HideAllWeapons();
@@ -414,22 +414,22 @@ public class RPGCharacterController : MonoBehaviour{
 		if(rpgCharacterState != RPGCharacterState.SWIMMING){
 			CheckForGrounded();
 			//apply gravity force
-			rb.AddForce(0, gravity, 0, ForceMode.Acceleration);
+			drag.AddForce(0, gravity, 0, ForceMode.Acceleration);
 			//check if character can move
 			if(canMove && !isBlocking && rpgCharacterState != RPGCharacterState.CLIMBING){
 				AirControl();
 			}
 			//check if falling and update rigidbody drag
-			if(rb.linearVelocity.y < fallingVelocity && rpgCharacterState != RPGCharacterState.CLIMBING){
+			if(drag.velocity.y < fallingVelocity && rpgCharacterState != RPGCharacterState.CLIMBING){
 				isFalling = true;
 				animator.SetInteger("Jumping", 2);
 				canJump = false;
-				rb.linearDamping = 0f;
+				drag.drag = 0f;
 			}
 			else{
 				isFalling = false;
 				if(!isJumping && !isFalling && isGrounded){
-					rb.linearDamping = 0;
+					drag.drag = 0;
 					if(distanceToGround > 0.11f && distanceToGround < slopeAmount && inputVec == Vector3.zero){
 						onAllowableSlope = true;
 					}
@@ -448,8 +448,8 @@ public class RPGCharacterController : MonoBehaviour{
 	//get velocity of rigid body and pass the value to the animator to control the animations
 	void LateUpdate(){
 		//Get local velocity of charcter
-		float velocityXel = transform.InverseTransformDirection(rb.linearVelocity).x;
-		float velocityZel = transform.InverseTransformDirection(rb.linearVelocity).z;
+		float velocityXel = transform.InverseTransformDirection(drag.velocity).x;
+		float velocityZel = transform.InverseTransformDirection(drag.velocity).z;
 		//Update animator with movement values
 		animator.SetFloat("Velocity X", velocityXel / runSpeed);
 		animator.SetFloat("Velocity Z", velocityZel / runSpeed);
@@ -504,10 +504,10 @@ public class RPGCharacterController : MonoBehaviour{
 		else{
 			if(rpgCharacterState != RPGCharacterState.SWIMMING){
 				//if we are falling use momentum
-				newVelocity = rb.linearVelocity;
+				newVelocity = drag.velocity;
 			}
 			else{
-				newVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+				newVelocity = new Vector3(drag.velocity.x, 0, drag.velocity.z);
 			}
 		}
 		if(isStrafing && weapon != Weapon.RELAX){
@@ -528,11 +528,11 @@ public class RPGCharacterController : MonoBehaviour{
 		///If on slope, freeze movement
 		if(!onAllowableSlope){
 			//if we are falling use momentum
-			newVelocity.y = rb.linearVelocity.y;
-			rb.linearVelocity = newVelocity;
+			newVelocity.y = drag.velocity.y;
+			drag.velocity = newVelocity;
 		}
 		else{
-			rb.linearVelocity = Vector3.zero;
+			drag.velocity = Vector3.zero;
 		}
 		//return a movement value for the animator
 		return inputVec.magnitude;
@@ -685,7 +685,7 @@ public class RPGCharacterController : MonoBehaviour{
 		if(collide.gameObject.layer == 4){
 			rpgCharacterState = RPGCharacterState.SWIMMING;
 			canAction = false;
-			rb.useGravity = false;
+			drag.useGravity = false;
 			animator.SetTrigger("SwimTrigger");
 			animator.SetBool("Swimming", true);
 			animator.SetInteger("Weapon", 0);
@@ -714,7 +714,7 @@ public class RPGCharacterController : MonoBehaviour{
 		if(collide.gameObject.layer == 4){
 			rpgCharacterState = RPGCharacterState.DEFAULT;
 			canAction = true;
-			rb.useGravity = true;
+			drag.useGravity = true;
 			animator.SetInteger("Jumping", 2);
 			animator.SetBool("Swimming", false);
 			capCollider.radius = 0.5f;
@@ -733,51 +733,51 @@ public class RPGCharacterController : MonoBehaviour{
 		AscendDescend();
 		Vector3 motion = inputVec;
 		//dampen vertical water movement
-		Vector3 dampenVertical = new Vector3(rb.linearVelocity.x, (rb.linearVelocity.y * 0.985f), rb.linearVelocity.z);
-		rb.linearVelocity = dampenVertical;
-		Vector3 waterDampen = new Vector3((rb.linearVelocity.x * 0.98f), rb.linearVelocity.y, (rb.linearVelocity.z * 0.98f));
+		Vector3 dampenVertical = new Vector3(drag.velocity.x, (drag.velocity.y * 0.985f), drag.velocity.z);
+		drag.velocity = dampenVertical;
+		Vector3 waterDampen = new Vector3((drag.velocity.x * 0.98f), drag.velocity.y, (drag.velocity.z * 0.98f));
 		//If swimming, don't dampen movement, and scale capsule collider
 		if(moveSpeed < 0.1f){
-			rb.linearVelocity = waterDampen;
+			drag.velocity = waterDampen;
 			capCollider.radius = 0.5f;
 		}
 		else{
 			capCollider.radius = 1.5f;
 		}
-		rb.linearVelocity = waterDampen;
+		drag.velocity = waterDampen;
 		//clamp diagonal movement so its not faster
 		motion *= (Mathf.Abs(inputVec.x) == 1 && Mathf.Abs(inputVec.z) == 1) ? 0.7f : 1;
-		rb.AddForce(motion * inWaterSpeed, ForceMode.Acceleration);
+		drag.AddForce(motion * inWaterSpeed, ForceMode.Acceleration);
 		//limit the amount of velocity we can achieve to water speed
 		float velocityX = 0;
 		float velocityZ = 0;
-		if(rb.linearVelocity.x > inWaterSpeed){
-			velocityX = GetComponent<Rigidbody>().linearVelocity.x - inWaterSpeed;
+		if(drag.velocity.x > inWaterSpeed){
+			velocityX = GetComponent<Rigidbody>().velocity.x - inWaterSpeed;
 			if(velocityX < 0){
 				velocityX = 0;
 			}
-			rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+			drag.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
 		}
-		if(rb.linearVelocity.x < minVelocity){
-			velocityX = rb.linearVelocity.x - minVelocity;
+		if(drag.velocity.x < minVelocity){
+			velocityX = drag.velocity.x - minVelocity;
 			if(velocityX > 0){
 				velocityX = 0;
 			}
-			rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+			drag.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
 		}
-		if(rb.linearVelocity.z > inWaterSpeed){
-			velocityZ = rb.linearVelocity.z - maxVelocity;
+		if(drag.velocity.z > inWaterSpeed){
+			velocityZ = drag.velocity.z - maxVelocity;
 			if(velocityZ < 0){
 				velocityZ = 0;
 			}
-			rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+			drag.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
 		}
-		if(rb.linearVelocity.z < minVelocity){
-			velocityZ = rb.linearVelocity.z - minVelocity;
+		if(drag.velocity.z < minVelocity){
+			velocityZ = drag.velocity.z - minVelocity;
 			if(velocityZ > 0){
 				velocityZ = 0;
 			}
-			rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+			drag.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
 		}
 	}
 
@@ -788,11 +788,11 @@ public class RPGCharacterController : MonoBehaviour{
 			if(isStrafing){
 				animator.SetBool("Strafing", true);
 				animator.SetTrigger("JumpTrigger");
-				rb.linearVelocity -= inWaterSpeed * Vector3.up;
+				drag.velocity -= inWaterSpeed * Vector3.up;
 			}
 			else{
 				animator.SetTrigger("JumpTrigger");
-				rb.linearVelocity += inWaterSpeed * Vector3.up;
+				drag.velocity += inWaterSpeed * Vector3.up;
 			}
 		}
 	}
@@ -824,7 +824,7 @@ public class RPGCharacterController : MonoBehaviour{
 				if(rpgCharacterState == RPGCharacterState.CLIMBING){
 					animator.SetTrigger("Climb-Off-BottomTrigger");
 					gravity = gravityTemp;
-					rb.useGravity = true;
+					drag.useGravity = true;
 					rpgCharacterState = RPGCharacterState.DEFAULT;
 					StartCoroutine(_Lock(true, true, true, 0f, 1f));
 				}
@@ -858,7 +858,7 @@ public class RPGCharacterController : MonoBehaviour{
 			}
 			if(canDoubleJump && doublejumping && Input.GetButtonDown("Jump") && !doublejumped && isFalling){
 				// Apply the current movement to launch velocity
-				rb.linearVelocity += doublejumpSpeed * Vector3.up;
+				drag.velocity += doublejumpSpeed * Vector3.up;
 				animator.SetInteger("Jumping", 3);
 				doublejumped = true;
 			}
@@ -872,11 +872,11 @@ public class RPGCharacterController : MonoBehaviour{
 		}
 		isJumping = true;
 		canJump = false;
-		rb.linearDamping = 0f;
+		drag.drag = 0f;
 		animator.SetInteger("Jumping", 1);
 		animator.SetTrigger("JumpTrigger");
 		// Apply the current movement to launch velocity
-		rb.linearVelocity += jumpSpeed * Vector3.up;
+		drag.velocity += jumpSpeed * Vector3.up;
 		canJump = false;
 		yield return new WaitForSeconds(0.5f);
 		isJumping = false;
@@ -886,37 +886,37 @@ public class RPGCharacterController : MonoBehaviour{
 		if(!isGrounded){
 			Vector3 motion = inputVec;
 			motion *= (Mathf.Abs(inputVec.x) == 1 && Mathf.Abs(inputVec.z) == 1) ? 0.7f : 1;
-			rb.AddForce(motion * inAirSpeed, ForceMode.Acceleration);
+			drag.AddForce(motion * inAirSpeed, ForceMode.Acceleration);
 			//limit the amount of velocity we can achieve
 			float velocityX = 0;
 			float velocityZ = 0;
-			if(rb.linearVelocity.x > maxVelocity){
-				velocityX = GetComponent<Rigidbody>().linearVelocity.x - maxVelocity;
+			if(drag.velocity.x > maxVelocity){
+				velocityX = GetComponent<Rigidbody>().velocity.x - maxVelocity;
 				if(velocityX < 0){
 					velocityX = 0;
 				}
-				rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+				drag.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
 			}
-			if(rb.linearVelocity.x < minVelocity){
-				velocityX = rb.linearVelocity.x - minVelocity;
+			if(drag.velocity.x < minVelocity){
+				velocityX = drag.velocity.x - minVelocity;
 				if(velocityX > 0){
 					velocityX = 0;
 				}
-				rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+				drag.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
 			}
-			if(rb.linearVelocity.z > maxVelocity){
-				velocityZ = rb.linearVelocity.z - maxVelocity;
+			if(drag.velocity.z > maxVelocity){
+				velocityZ = drag.velocity.z - maxVelocity;
 				if(velocityZ < 0){
 					velocityZ = 0;
 				}
-				rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+				drag.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
 			}
-			if(rb.linearVelocity.z < minVelocity){
-				velocityZ = rb.linearVelocity.z - minVelocity;
+			if(drag.velocity.z < minVelocity){
+				velocityZ = drag.velocity.z - minVelocity;
 				if(velocityZ > 0){
 					velocityZ = 0;
 				}
-				rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+				drag.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
 			}
 		}
 	}
@@ -932,7 +932,7 @@ public class RPGCharacterController : MonoBehaviour{
 	public void EndClimbing(){
 		rpgCharacterState = RPGCharacterState.DEFAULT;
 		gravity = gravityTemp;
-		rb.useGravity = true;
+		drag.useGravity = true;
 		animator.applyRootMotion = false;
 		canMove = true;
 		isClimbing = false;
@@ -1204,8 +1204,8 @@ public class RPGCharacterController : MonoBehaviour{
 			}
 			isBlocking = true;
 			animator.SetBool("Blocking", true);
-			rb.linearVelocity = Vector3.zero;
-			rb.angularVelocity = Vector3.zero;
+			drag.velocity = Vector3.zero;
+			drag.angularVelocity = Vector3.zero;
 			inputVec = Vector3.zero;
 		}
 		else{
@@ -1252,7 +1252,7 @@ public class RPGCharacterController : MonoBehaviour{
 
 	IEnumerator _KnockbackForce(Vector3 knockDirection, int knockBackAmount, int variableAmount){
 		while(isKnockback){
-			rb.AddForce(knockDirection * ((knockBackAmount + Random.Range(-variableAmount, variableAmount)) * (knockbackMultiplier * 10)), ForceMode.Impulse);
+			drag.AddForce(knockDirection * ((knockBackAmount + Random.Range(-variableAmount, variableAmount)) * (knockbackMultiplier * 10)), ForceMode.Impulse);
 			yield return null;
 		}
 	}
@@ -1360,8 +1360,8 @@ public class RPGCharacterController : MonoBehaviour{
 	void LockMovement(){
 		canMove = false;
 		animator.SetBool("Moving", false);
-		rb.linearVelocity = Vector3.zero;
-		rb.angularVelocity = Vector3.zero;
+		drag.velocity = Vector3.zero;
+		drag.angularVelocity = Vector3.zero;
 		inputVec = new Vector3(0, 0, 0);
 		animator.applyRootMotion = true;
 	}

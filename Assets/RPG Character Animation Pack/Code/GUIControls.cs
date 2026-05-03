@@ -18,7 +18,7 @@ public class GUIControls : MonoBehaviour{
 	public void EndClimbing(){
 		rpgCharacterController.rpgCharacterState = RPGCharacterState.DEFAULT;
 		rpgCharacterController.gravity = rpgCharacterController.gravityTemp;
-		rpgCharacterController.rb.useGravity = true;
+		rpgCharacterController.GetComponent<Rigidbody>().useGravity = true;
 		rpgCharacterController.animator.applyRootMotion = false;
 		rpgCharacterController.canMove = true;
 		rpgCharacterController.isClimbing = false;
@@ -443,7 +443,7 @@ public class GUIControls : MonoBehaviour{
 				if(GUI.Button(new Rect(130, 200, 100, 30), "Climb")){
 					rpgCharacterController.gravityTemp = rpgCharacterController.gravity;
 					rpgCharacterController.gravity = 0;
-					rpgCharacterController.rb.useGravity = false;
+					rpgCharacterController.GetComponent<Rigidbody>().useGravity = false;
 					rpgCharacterController.animator.applyRootMotion = true;
 					rpgCharacterController.animator.SetTrigger("Climb-On-BottomTrigger");
 					//Get the direction of the ladder, and snap the character to the correct position and facing

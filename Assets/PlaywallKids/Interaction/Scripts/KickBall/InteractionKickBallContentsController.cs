@@ -172,7 +172,7 @@ namespace ML.PlaywallKids.Interaction
             indexReactivatingBall = (indexReactivatingBall + 1) % startingPointsOfBall.Length;
             _go.SetActive(true);
             Rigidbody _r = _go.GetComponentInChildren<Rigidbody>();
-            _r.linearVelocity = Vector3.zero;
+            _r.velocity = Vector3.zero;
         }
 
         void CallbackGuidance()

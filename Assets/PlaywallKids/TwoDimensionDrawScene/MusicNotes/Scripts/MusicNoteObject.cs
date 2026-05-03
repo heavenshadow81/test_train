@@ -61,34 +61,34 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
             _StartAnimationTimer(ANIMATION_SHOW, 1.0f);
 
             // Rigidbody
-            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-            Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-            if (rigidbody == null)
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            Rigidbody2D rb2D = gameObject.GetComponent<Rigidbody2D>();
+            if (rb == null)
             {
-                if (rigidbody2D == null)
+                if (rb2D == null)
                 {
-                    rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
+                    rb2D = gameObject.AddComponent<Rigidbody2D>();
                 }
 
-                rigidbody2D.mass = 1.0f;
-                rigidbody2D.gravityScale = 0.0f;
-                rigidbody2D.linearDamping = 0.125f;
-                rigidbody2D.angularDamping = 2.0f;
-                rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
-                rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+                rb2D.mass = 1.0f;
+                rb2D.gravityScale = 0.0f;
+                rb2D.drag = 0.125f;
+                rb2D.angularDrag = 2.0f;
+                rb2D.interpolation = RigidbodyInterpolation2D.Interpolate;
+                rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             }
             else
             {
-                rigidbody.mass = 1.0f;
-                rigidbody.useGravity = false;
-                rigidbody.linearDamping = 0.125f;
-                rigidbody.angularDamping = 2.0f;
-                rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-                rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                rb.mass = 1.0f;
+                rb.useGravity = false;
+                rb.drag = 0.125f;
+                rb.angularDrag = 2.0f;
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
 
             // Collider
-            if (rigidbody != null)
+            if (rb != null)
             {
                 if (_musicNote.GetComponent<Collider>() == null)
                 {
@@ -180,7 +180,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
 
             GameObject go = gameObject;
 
-            // Turn off the collider and rigidbody
+            // Turn off the collider and rb
             var colliders2D = go.GetComponents<Collider2D>();
             for (int i = 0, cnt = colliders2D.Length; i < cnt; i++) colliders2D[i].enabled = false;
             colliders2D = go.GetComponentsInChildren<Collider2D>();
@@ -190,10 +190,10 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
             colliders = go.GetComponentsInChildren<Collider>();
             for (int i = 0, cnt = colliders.Length; i < cnt; i++) colliders[i].enabled = false;
 
-            Rigidbody2D rigidbody2D = go.GetComponent<Rigidbody2D>();
-            if (rigidbody2D != null) Destroy(rigidbody2D);
-            Rigidbody rigidbody = go.GetComponent<Rigidbody>();
-            if (rigidbody != null) Destroy(rigidbody);
+            Rigidbody2D rb2D = go.GetComponent<Rigidbody2D>();
+            if (rb2D != null) Destroy(rb2D);
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            if (rb != null) Destroy(rb);
 
             // Shows effect
             if (effects != null && effects.Length > 0)

@@ -22,7 +22,7 @@ namespace ML.MLBKids
                 ball.hit = true;
 
                 Rigidbody rgd = ball.GetComponentInChildren<Rigidbody>();
-                if (rgd != null && rgd.linearVelocity.magnitude < 1.0f)
+                if (rgd != null && rgd.velocity.magnitude < 1.0f)
                 {
                     Debug.Log("Ball is too slow. ignored..");
                     return;
@@ -70,8 +70,8 @@ namespace ML.MLBKids
                 
                 if (scoreType != ScoreManager.ScoreType.Ball)
                 {
-                    Rigidbody rigidbody = ball.GetComponent<Rigidbody>();
-                    rigidbody.isKinematic = true;
+                    Rigidbody rb = ball.GetComponent<Rigidbody>();
+                    rb.isKinematic = true;
 
                     Sequence seq = DOTween.Sequence();
                     seq.SetTarget(ball);

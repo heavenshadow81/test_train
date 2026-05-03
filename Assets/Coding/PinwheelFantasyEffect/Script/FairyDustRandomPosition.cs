@@ -19,14 +19,14 @@ public class FairyDustRandomPosition : MonoBehaviour {
 
     public void Start()
     {
-        rgbd.linearDamping = 1;
+        rgbd.drag = 1;
         initPos = transform.position;
         InvokeRepeating("GetNextPosition", 0, intervalInSec);
     }
 
     public void FixedUpdate()
     {
-        if (rgbd.linearVelocity.sqrMagnitude > maxVelocityMagnitude * maxVelocityMagnitude)
+        if (rgbd.velocity.sqrMagnitude > maxVelocityMagnitude * maxVelocityMagnitude)
             return;
         Vector3 directionToNextPos;
         directionToNextPos = (nextPos - transform.position).normalized;
