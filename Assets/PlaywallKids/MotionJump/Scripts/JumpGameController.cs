@@ -456,11 +456,11 @@ namespace ML.PlaywallKids.MotionJump
             if (currentState != EState.PLAYING) return;
 
             //제한 속도보다 빨리 떨어지면 제한 속도로 보정
-            if (player.Rigid.linearVelocity.y < limitVelocity)
+            if (player.Rigid.velocity.y < limitVelocity)
             {
-                Vector3 velocity = player.Rigid.linearVelocity;
+                Vector3 velocity = player.Rigid.velocity;
                 velocity.y = limitVelocity;
-                player.Rigid.linearVelocity = velocity;
+                player.Rigid.velocity = velocity;
             }
 
             // 바닥 충돌 체크
@@ -519,7 +519,7 @@ namespace ML.PlaywallKids.MotionJump
             float fCurrentHeight = iCurrentIndexOfHeight * planeHeight + fDefaultHeight;
 
             // change plane image and position
-            if (player.Rigid.linearVelocity.y > 0) // 위로 점프 중
+            if (player.Rigid.velocity.y > 0) // 위로 점프 중
             {
                 if (fCurrentHeight <= player.Height) // 현재배경이 위치한 높이 보다 사용자가 더 높으면
                 {
@@ -564,9 +564,9 @@ namespace ML.PlaywallKids.MotionJump
         void CameraFollowToPlayer()
         {
             float demping = 1f;
-            if (player.Rigid.linearVelocity.y < 0)
+            if (player.Rigid.velocity.y < 0)
             {
-                demping = player.Rigid.linearVelocity.y / -10;
+                demping = player.Rigid.velocity.y / -10;
                 ++demping;
             }
 

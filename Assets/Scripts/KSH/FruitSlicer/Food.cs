@@ -128,7 +128,7 @@ namespace Bax.P0.Client.UnityWorld.SlicerGame
             //������ �������� �ֵ��� 1�� ����
             foodClone.rid2D.gravityScale = 1;
             //gravity �� �����ϰ� 0���� ���� ��
-            foodClone.rid2D.linearVelocity = Vector2.zero;
+            foodClone.rid2D.velocity = Vector2.zero;
             //�Ķ���Ϳ��� ���޹��� �������� ����
             foodClone.rid2D.AddForce(dir * AddForcePower, ForceMode2D.Impulse);
 

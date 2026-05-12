@@ -38,7 +38,7 @@ public class TableWare_LT : MonoBehaviour
     private void OnEnable()
     {
         rigidBody.gravityScale = 0;
-        rigidBody.linearVelocity = Vector2.zero; // Ȥ�� �������� �̵� �ӵ��� �ʱ�ȭ
+        rigidBody.velocity = Vector2.zero; // Ȥ�� �������� �̵� �ӵ��� �ʱ�ȭ
         rigidBody.simulated = true; // Rigidbody2D�� Ȱ��ȭ
         boxCollider.enabled = true; // Collider2D�� Ȱ��ȭ
         food.OnFoodChange += Init;

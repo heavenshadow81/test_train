@@ -21,7 +21,7 @@ namespace ML.PlaywallKids.Interaction
         private InteractionKickBallMainController _mainController;
         public InteractionKickBallContentsController _contentsController;
 
-        private Rigidbody _rigidbody;
+        private Rigidbody _rb;
         private TrailRenderer _trailRenderer;
         private Vector3 _shootDir;
 
@@ -35,7 +35,7 @@ namespace ML.PlaywallKids.Interaction
             _contentsController = GetComponentInParent<InteractionKickBallContentsController>();
             k_camera = FindObjectOfType<Camera>();
             _mainController = GetComponentInParent<InteractionKickBallMainController>();
-            _rigidbody = GetComponent<Rigidbody>();
+            _rb = GetComponent<Rigidbody>();
 
             // Add Collider
             GameObject goCollider = new GameObject("Collidrer");
@@ -103,7 +103,7 @@ namespace ML.PlaywallKids.Interaction
                 {
                     yield return new WaitForSeconds(2f);
 
-                    _rigidbody.linearVelocity = Vector3.zero;
+                    _rb.velocity = Vector3.zero;
                     InitBall();
 
                     Transform[] posList = null;
@@ -116,7 +116,7 @@ namespace ML.PlaywallKids.Interaction
 
                     yield return new WaitForEndOfFrame();
 
-                    //_rigidbody.AddForce(Vector3.down * strength);
+                    //_rb.AddForce(Vector3.down * strength);
                 }
 
                 isRun = false;
@@ -133,7 +133,7 @@ namespace ML.PlaywallKids.Interaction
                 Vector3 newDir = Vector3.right * -_shootDir.x;
 
                 float pow = (1f - ((_shootDir.z - POWER_MIN_Z) / (POWER_MAX_Z - POWER_MIN_Z))) * 2f;
-                _rigidbody.AddForce(newDir * strength * pow, ForceMode.Acceleration);
+                _rb.AddForce(newDir * strength * pow, ForceMode.Acceleration);
             }
             /*
             if (mapperView.motionType == MotionType.PunchMotion)
@@ -167,12 +167,12 @@ namespace ML.PlaywallKids.Interaction
 
             //dir = Vector3.forward + new Vector3(0, dir.y, dir.z);
 
-            if (_rigidbody != null)
+            if (_rb != null)
             {
                 //Debug.Log("Shoot : " + _shootDir);
                 _trailRenderer.gameObject.SetActive(true);
-                _rigidbody.linearVelocity = Vector3.zero;
-                _rigidbody.AddForce(_shootDir * strength * Random.Range(0.7f, 1f), ForceMode.Impulse);
+                _rb.velocity = Vector3.zero;
+                _rb.AddForce(_shootDir * strength * Random.Range(0.7f, 1f), ForceMode.Impulse);
             }
         }
         /*
@@ -185,7 +185,7 @@ namespace ML.PlaywallKids.Interaction
                     colCount = 1;
                     _shootDir = _shootDir * 0.7f;
                     //_shootDir = Vector3.zero;
-                    //_rigidbody.AddForce(Vector3.back * strength * 0.2f);
+                    //_rb.AddForce(Vector3.back * strength * 0.2f);
                 }
             }
         }
@@ -205,7 +205,7 @@ namespace ML.PlaywallKids.Interaction
                         if (isRun == false)
                         {
                             InitBall();
-                            _rigidbody.AddForce((Vector3.back + Vector3.down) * strength * strength * 3f);
+                            _rb.AddForce((Vector3.back + Vector3.down) * strength * strength * 3f);
                         }
                     }
                 }

@@ -149,7 +149,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         void Update()
         {
             if (CheckState(EState.MOVING) && !collide)
-            { preVelocity = rigid.linearVelocity; }
+            { preVelocity = rigid.velocity; }
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
                         AudioSource.PlayClipAtPoint(sndBounce, Vector3.zero);
                     break;
                 case CRAB:
-                    if (rigid.linearVelocity.x != 0 && rigid.linearVelocity.y != 0)
+                    if (rigid.velocity.x != 0 && rigid.velocity.y != 0)
                     {
                         AudioClip snd = null;
 

@@ -14,7 +14,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         {
             // if(string.Compare(tag, _other.gameObject.tag) == 0)
             {
-                Vector2 velocity = _other.rigidbody.linearVelocity;
+                Vector2 velocity = _other.rigidbody.velocity;
                 // Debug.Log(_other.gameObject.tag + " : "  + string.Format("{0}, {1}", velocity.x, velocity.y));
                 velocity.y *= -1f;
                 if (velocity.y == 0f)
@@ -36,7 +36,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         void OnCollisionEnter(Collision _other)
         {
 
-            Vector3 velocity = _other.rigidbody.linearVelocity;
+            Vector3 velocity = _other.rigidbody.velocity;
             velocity.y *= -1f;
             // _other.rigidbody.Sleep();
             _other.rigidbody.AddForce(velocity, ForceMode.Force);

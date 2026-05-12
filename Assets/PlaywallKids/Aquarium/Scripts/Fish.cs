@@ -27,7 +27,7 @@ namespace ML.PlaywallKids.Aquarium
             float z = Random.Range(-RR, RR);
             dir = new Vector3(x, y, z);
 
-            rigid.linearVelocity = dir;
+            rigid.velocity = dir;
             origin = transform.forward;
             Invoke("Move", changeTime);
             lerp = true;

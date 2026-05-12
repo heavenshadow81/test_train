@@ -6,7 +6,7 @@ namespace KartRider
 {
     public class SetPhysicsMaterial : MonoBehaviour
     {
-        [SerializeField] PhysicsMaterial targetMaterial;
+        [SerializeField] PhysicMaterial targetMaterial;
 
         private void Start()
         {

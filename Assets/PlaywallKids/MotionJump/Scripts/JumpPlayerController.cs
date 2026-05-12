@@ -61,7 +61,7 @@ namespace ML.PlaywallKids.MotionJump
                         case Estate.BE_REACHED:
 
                             SetAnimation("Dance", true);
-                            Rigid.linearVelocity = Vector3.zero;
+                            Rigid.velocity = Vector3.zero;
                             Rigid.useGravity = false;
                             break;
                     }
@@ -201,13 +201,13 @@ namespace ML.PlaywallKids.MotionJump
                         //AudioSource.PlayClipAtPoint(sndSonicBoom, Vector3.zero);
                         Jump(item.strength);
                         usingItem = item.type;
-                        Rigid.linearVelocity = Vector3.zero;
+                        Rigid.velocity = Vector3.zero;
                         break;
 
                     case EItemType.COIN:
                         if (usingItem != EItemType.SPEED)
                         {
-                            Rigid.linearVelocity = Vector3.zero;
+                            Rigid.velocity = Vector3.zero;
                             Jump(item.strength);
                             usingItem = item.type;
                         }
@@ -227,7 +227,7 @@ namespace ML.PlaywallKids.MotionJump
         void OnCollisionEnter(Collision _other)
         {
             bool condition = (currentState == Estate.JUMPING || currentState == Estate.FALLING);
-            bool falling = Rigid.linearVelocity.y <= 0f;
+            bool falling = Rigid.velocity.y <= 0f;
             if (condition && falling)
             {
                 OnTheFloor = true;
@@ -261,7 +261,7 @@ namespace ML.PlaywallKids.MotionJump
         void Jump(float _strength)
         {
             //속도 초기화
-            if (Rigid.linearVelocity.y > 0) Rigid.linearVelocity = Vector3.zero;
+            if (Rigid.velocity.y > 0) Rigid.velocity = Vector3.zero;
 
             Rigid.AddForce(Vector3.up * _strength, ForceMode.Force);
             currentState = Estate.JUMPING;
@@ -288,7 +288,7 @@ namespace ML.PlaywallKids.MotionJump
 
                 case EItemType.SPEED:
 
-                    if (fActiveItemTime != 0 && Rigid.linearVelocity.y <= 0) //속도가 저하
+                    if (fActiveItemTime != 0 && Rigid.velocity.y <= 0) //속도가 저하
                     {
                         boostEffect.SetActive(false);
 
