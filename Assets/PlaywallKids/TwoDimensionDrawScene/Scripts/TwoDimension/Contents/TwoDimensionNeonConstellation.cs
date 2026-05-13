@@ -50,7 +50,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         private Dictionary<CircleCollider2D, bool> dictionarySketch = new Dictionary<CircleCollider2D, bool>();
 
         private Canvas_ canvas;
-        private Rigidbody2D rigidbody2D;
+        private Rigidbody2D rb2D;
 
         private int nIndex;
         private bool bComplete;
@@ -152,8 +152,8 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
             }
             else
             {
-                if (rigidbody2D != null)
-                    if (rigidbody2D.linearVelocity.x < 0.05f && rigidbody2D.linearVelocity.y < 0.05f)
+                if (rb2D != null)
+                    if (rb2D.velocity.x < 0.05f && rb2D.velocity.y < 0.05f)
                         ShootRand();
             }
 
@@ -235,20 +235,20 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
 
 
             // Setting RigidBody2D
-            rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-            if (rigidbody2D == null)
+            rb2D = gameObject.GetComponent<Rigidbody2D>();
+            if (rb2D == null)
             {
-                rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
+                rb2D = gameObject.AddComponent<Rigidbody2D>();
             }
 
-            rigidbody2D.mass = 1.0f;
-            rigidbody2D.gravityScale = 0;
-            rigidbody2D.linearDamping = 0.005f;
-            rigidbody2D.angularDamping = 0.5f;
-            //rigidbody2D.fixedAngle = true;
-            rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rigidbody2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
-            rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            rb2D.mass = 1.0f;
+            rb2D.gravityScale = 0;
+            rb2D.drag = 0.005f;
+            rb2D.angularDrag = 0.5f;
+            //rb2D.fixedAngle = true;
+            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
+            rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
             ShootRand();
 
@@ -261,7 +261,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
         {
             canvas.wantsPaint = true;
 
-            Destroy(rigidbody2D);
+            Destroy(rb2D);
 
             NGUITools.SetActive(goStart, false);
             NGUITools.SetActive(goMove, true);
@@ -352,8 +352,8 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
             {
                 touchID = touch.id;
                 touchInterval = Vector2.zero;
-                if (rigidbody2D != null)
-                    rigidbody2D.linearVelocity = Vector2.zero;
+                if (rb2D != null)
+                    rb2D.velocity = Vector2.zero;
                 manager.UpdateDepth(this);
                 return true;
             }
@@ -383,8 +383,8 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
             if (touch != null)
             {
                 Vector2 velocity = new Vector2(transform.localPosition.x, transform.localPosition.y) - lastPosition;
-                if (rigidbody2D != null)
-                    rigidbody2D.AddForce(velocity * 2f);
+                if (rb2D != null)
+                    rb2D.AddForce(velocity * 2f);
                 GetComponent<BoxCollider2D>().isTrigger = false;
 
                 touchID = null;
@@ -393,7 +393,7 @@ namespace ML.PlaywallKids.TwoDimensionDrawScene
 
         private void ShootRand()
         {
-            rigidbody2D.AddForce(new Vector2(Random.value, Random.value) * (Random.value > 0.5f ? 1f : -1f));
+            rb2D.AddForce(new Vector2(Random.value, Random.value) * (Random.value > 0.5f ? 1f : -1f));
         }
 
         private TouchInfo? GetTouchInfo()

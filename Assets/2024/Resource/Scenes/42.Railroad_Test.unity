@@ -37,7 +37,11 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
+<<<<<<< HEAD
+  m_Sun: {fileID: 0}
+=======
   m_Sun: {fileID: 1004555347}
+>>>>>>> f317276497a5423ce7f13df6bbc8131bac6af241
   m_IndirectSpecularColor: {r: 0.89035, g: 0.89294535, b: 0.88354063, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -123,6 +127,8 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
+=======
 --- !u!1 &60625506
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +223,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 28.932, y: -414.456, z: -158.358}
+>>>>>>> f317276497a5423ce7f13df6bbc8131bac6af241
 --- !u!1 &90456880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,6 +1260,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992955076}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+=======
 --- !u!1 &1004555346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,6 +1356,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 18.248, y: 92.661, z: 58.536}
+>>>>>>> f317276497a5423ce7f13df6bbc8131bac6af241
 --- !u!1001 &1072299771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2197,8 +2207,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 1199321978}
   - {fileID: 1911293722}
+<<<<<<< HEAD
+=======
   - {fileID: 1004555348}
   - {fileID: 60625508}
+>>>>>>> f317276497a5423ce7f13df6bbc8131bac6af241
   - {fileID: 499224940}
   - {fileID: 1997127903}
   - {fileID: 90456883}

@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1918190794462273590}
   - {fileID: 198582999468517738}
   - {fileID: 693609945039573374}
   - {fileID: 1280349821710270325}
@@ -70,6 +69,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8472708135847841938}
+  - {fileID: 1918190794462273590}
   - {fileID: 7160665844584643803}
   - {fileID: 4291298972294946243}
   m_Father: {fileID: 0}
@@ -364,11 +364,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4291298972294946243}
+    m_TransformParent: {fileID: 2430412999541699901}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
       propertyPath: m_LocalRotation.z
@@ -409,10 +409,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
       propertyPath: m_Name
       value: CurveBlock
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 0b2cf585424586b4c914567f14ef40cc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -771,10 +767,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 131e247a5fa851643af3f40ce9ad69bd, type: 3}
       propertyPath: m_Name
       value: CurveRail
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 131e247a5fa851643af3f40ce9ad69bd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

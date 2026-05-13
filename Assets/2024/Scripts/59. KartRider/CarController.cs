@@ -204,7 +204,7 @@ namespace KartRider
                     break;
             }
 
-            KmH = rb.linearVelocity.magnitude * 3.6f;
+            KmH = rb.velocity.magnitude * 3.6f;
         }
 
         private void BrakeVehicle()
@@ -297,11 +297,11 @@ namespace KartRider
 
             if (vertical != 0)
             {
-                rb.linearDamping = 0.005f;
+                rb.drag = 0.005f;
             }
             if (vertical == 0)
             {
-                rb.linearDamping = 0.1f;
+                rb.drag = 0.1f;
             }
             totalPower = 3.6f * enginePower.Evaluate(engineRPM) * vertical;
 
@@ -538,11 +538,11 @@ namespace KartRider
         {
             if (IsGrounded())
             {
-                rb.AddForce(-transform.up * downForceValue * rb.linearVelocity.magnitude);
+                rb.AddForce(-transform.up * downForceValue * rb.velocity.magnitude);
             }
             else
             {
-                rb.AddForce(Vector3.down * downForceValue * rb.linearVelocity.magnitude);
+                rb.AddForce(Vector3.down * downForceValue * rb.velocity.magnitude);
             }
 
         }
@@ -670,7 +670,7 @@ namespace KartRider
             reverseDirectionDuration = 0f;
             zeroSpeedDuration = 0f;
             outOfTrackDuration = 0f; // ���� �� �ð� �ʱ�ȭ
-            rb.linearVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             downForceValue = 1000f;
             radiusScale = 10f;
