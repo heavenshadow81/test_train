@@ -1842,6 +1842,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1
       objectReference: {fileID: 0}
+    - target: {fileID: 4489373919762140298, guid: b0cb9e298820da6409f11f58f222f52b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566385268498466040, guid: b0cb9e298820da6409f11f58f222f52b, type: 3}
+      propertyPath: railMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 22dcaa8cf9e687e4699157570caeb0dc, type: 2}
     - target: {fileID: 5629770644906210165, guid: b0cb9e298820da6409f11f58f222f52b, type: 3}
       propertyPath: backGround
       value: 
@@ -3967,6 +3975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level2
       objectReference: {fileID: 0}
+    - target: {fileID: 1112601097942859658, guid: 0b82df4c7e8a76c46ad7aa9dd14b0e0d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1266684743875824638, guid: 0b82df4c7e8a76c46ad7aa9dd14b0e0d, type: 3}
       propertyPath: backGround
       value: 
@@ -5773,6 +5785,10 @@ PrefabInstance:
     - target: {fileID: 1826476634127389685, guid: 9f64f9e5ed75ca74fabe6ddc9c66dd63, type: 3}
       propertyPath: m_Name
       value: Level3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826476634127389685, guid: 9f64f9e5ed75ca74fabe6ddc9c66dd63, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2038254723924285100, guid: 9f64f9e5ed75ca74fabe6ddc9c66dd63, type: 3}
       propertyPath: m_LocalPosition.x
